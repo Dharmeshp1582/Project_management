@@ -10,12 +10,10 @@ const syncUserCreation = inngest.createFunction({id:'sync-user-from-clerk'},
     const {data} = event;
 
     await userModel.create({
-     data:{
        id: data.id,
-      email: data?.email_addresses?.[0]?.email_address || "",
-      name: data?.first_name + "" + data?.last_name,
+      email: data?.email_addresses?.[0]?.email_addres,
+      name: data?.first_name + " " + data?.last_name,
       image: data?.image_url,
-     }
     });
     // Logic to sync user data to your database goes here
     console.log("Syncing user:", data);
