@@ -5,7 +5,7 @@ import userModel from "../models/user.model.js";
 export const inngest = new Inngest({ id: "project-management" });
 
 // Inngest Function to save user data to a database
-const syncUserCreation = inngest.createFunction({id:'sync-user-from-clerk'},
+const syncUserCreation = inngest.createFunction({id:'create-user-from-clerk'},
   {event:'clerk/user.created'}, async ({ event }) => {
     const {data} = event;
 
