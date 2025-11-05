@@ -8,7 +8,8 @@ export const inngest = new Inngest({ id: "project-management" });
 const syncUserCreation = inngest.createFunction({id:'sync-user-from-clerk'},
   {event:'clerk/user.created'}, async ({ event }) => {
      console.log("🟢 Received event:", event.name, event.data);
-    const {data} = event;
+    const data = event.data;
+
 
     await userModel.create({
        clerkId: data.id,
@@ -26,7 +27,8 @@ const syncUserCreation = inngest.createFunction({id:'sync-user-from-clerk'},
 
 const syncUserDeletion = inngest.createFunction({id:'delete-user-with-clerk'},
   {event:'clerk/user.deleted'}, async ({ event }) => {
-    const {data} = event;
+    const data = event.data;
+
 
     await userModel.deleteOne({
       clerkId: data.id,
@@ -37,7 +39,8 @@ const syncUserDeletion = inngest.createFunction({id:'delete-user-with-clerk'},
 // Inngest Function to save user data to a database
 const syncUserUpdation = inngest.createFunction({id:'update-user-from-clerk'},
   {event:'clerk/user.updated'}, async ({ event }) => {
-    const {data} = event;
+    const data = event.data;
+
 
      await userModel.updateOne(
       { clerkId: data.id }, // filter condition
