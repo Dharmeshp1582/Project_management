@@ -11,7 +11,7 @@ const syncUserCreation = inngest.createFunction({id:'sync-user-from-clerk'},
     const {data} = event;
 
     await userModel.create({
-       id: data.id,
+       clerkId: data.id,
       email: data?.email_addresses?.[0]?.email_address,
       name: data?.first_name + " " + data?.last_name,
       image: data?.image_url,
@@ -29,7 +29,7 @@ const syncUserDeletion = inngest.createFunction({id:'delete-user-with-clerk'},
     const {data} = event;
 
     await userModel.deleteOne({
-      id: data.id,
+      clerkId: data.id,
     });
   }
 )          
@@ -40,10 +40,10 @@ const syncUserUpdation = inngest.createFunction({id:'update-user-from-clerk'},
     const {data} = event;
 
      await userModel.updateOne(
-      { id: data.id }, // filter condition
+      { clerkId: data.id }, // filter condition
       {
         $set: {
-          email: data?.email_addresses?.[0]?.email_address || "",
+          email: data?.email_addresses?.[0]?.email_address ,
           name: `${data?.first_name || ""} ${data?.last_name || ""}`.trim(),
           image: data?.image_url,
         },
