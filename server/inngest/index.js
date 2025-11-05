@@ -7,11 +7,12 @@ export const inngest = new Inngest({ id: "project-management" });
 // Inngest Function to save user data to a database
 const syncUserCreation = inngest.createFunction({id:'sync-user-from-clerk'},
   {event:'clerk/user.created'}, async ({ event }) => {
+     console.log("🟢 Received event:", event.name, event.data);
     const {data} = event;
 
     await userModel.create({
        id: data.id,
-      email: data?.email_addresses?.[0]?.email_addres,
+      email: data?.email_addresses?.[0]?.email_address,
       name: data?.first_name + " " + data?.last_name,
       image: data?.image_url,
     });
